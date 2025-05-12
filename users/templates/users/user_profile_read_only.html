@@ -1,0 +1,31 @@
+{% extends "dogs/base.html" %}
+{% load my_tags %}
+{% block content %}
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">Мой профиль</div>
+            <img class="card-img-top"
+                 src="{{ user.avatar|user_media }}" width="300" height="700"
+                 alt="Card img cap">
+            <div class="card-body">
+                <span class="card-text">Email: {{user.email}}</span><br>
+                <span class="card-text">Имя: {{user.first_name|default:"не указано"}}</span><br>
+                <span class="card-text">Фамилия: {{user.last_name|default:"не указано"}}</span><br>
+                <span class="card-text">Телефон: {{user.phone|default:"не указано"}}</span><br>
+                <span class="card-text">Телеграм: {{user.telegram|default:"не указано"}}</span><br>
+                <button class="btn btn-outline-warning">
+                    <a class="btn btn-link" href="{% url 'users:user_update' %}">обновить</a>
+                </button>
+                <button class="btn btn-outline-warning">
+                    <a class="btn btn-link" href="{% url 'users:user_change_password' %}">измнить пароль</a>
+                </button>
+                <button class="btn btn-outline-danger">
+                    <a class="btn btn-link" href="{% url 'users:user_generate_new_password' %}">генерация пароля</a>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
