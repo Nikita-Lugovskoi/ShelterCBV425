@@ -7,11 +7,11 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.views import LoginView, PasswordChangeView, LogoutView
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DetailView
 from django.urls import reverse_lazy
 
 from users.models import User
-from users.forms import UserRegisterForm, UserLoginForm, UserUpdateForm, UserChangePasswordForm
+from users.forms import UserRegisterForm, UserLoginForm, UserUpdateForm, UserChangePasswordForm, UserForm
 from users.services import send_register_email, send_new_password
 
 class UserRegisterView(CreateView):
@@ -28,40 +28,37 @@ class UserLoginView(LoginView):
     form_class = UserLoginForm
     template_name = 'users/user_login.html'
     extra_context = {
-        'title': 'Вход в аккаунтт'
+        'title': 'Вход в аккаунт'
     }
     
 
-
-# def user_login_view(request):
-#     if request.method == "POST":
-#         form = UserLoginForm(request.POST)
-#         if form.is_valid():
-#             cleaned_data = form.cleaned_data
-#             user = authenticate(email=cleaned_data['email'], password=cleaned_data['password'])
-#             if user is not None:
-#                 if user.is_active:
-#                     login(request, user)
-#                     return HttpResponseRedirect(reverse('dogs:index'))
-#             return HttpResponse('Вы не зарегистрированы либо неверный пароль, либо вы забанены!')
-#     context = {
-#         'title': 'Вход в аккаунт',
-#         'form': UserLoginForm
-#     }
-#     return render(request, 'users/user_login.html', context=context)
-
-
-@login_required(login_url='users:user_login')
-def user_profile_view(request):
-    user_object = request.user
-    if user_object.first_name and user_object.last_name:
-        user_name = user_object.first_name + ' ' + user_object.last_name
-    else:
-        user_name = "Anonymous"
-    context = {
-        'title': f'Ваш профиль {user_name}',
+class UserProfileView(UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = 'users/user_profile_read_only.html'
+    extra_context = {
+        'title': 'Ваш профиль'
     }
-    return render(request, 'users/user_profile_read_only.html', context=context)
+    
+    def get_object(self, queryset=None):
+        return self.request.user
+    
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data()
+        context_data['title'] = f'Ваш профиль {self.get_object()}'
+        return context_data
+
+# @login_required(login_url='users:user_login')
+# def user_profile_view(request):
+#     user_object = request.user
+#     if user_object.first_name and user_object.last_name:
+#         user_name = user_object.first_name + ' ' + user_object.last_name
+#     else:
+#         user_name = "Anonymous"
+#     context = {
+#         'title': f'Ваш профиль {user_name}',
+#     }
+#     return render(request, 'users/user_profile_read_only.html', context=context)
 
 
 @login_required(login_url='users:user_login')
