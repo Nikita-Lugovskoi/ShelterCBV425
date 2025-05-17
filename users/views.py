@@ -48,34 +48,36 @@ class UserProfileView(UpdateView):
         context_data['title'] = f'Ваш профиль {self.get_object()}'
         return context_data
 
+
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    template_name = 'users/user_update.html'
+    success_url = reverse_lazy('users:user_profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user
+    
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data()
+        context_data['title'] = f'Обновить профиль {self.get_object()}'
+        return context_data
+
 # @login_required(login_url='users:user_login')
-# def user_profile_view(request):
+# def user_update_view(request):
 #     user_object = request.user
-#     if user_object.first_name and user_object.last_name:
-#         user_name = user_object.first_name + ' ' + user_object.last_name
-#     else:
-#         user_name = "Anonymous"
+#     if request.method == "POST":
+#         form = UserUpdateForm(request.POST, request.FILES, instance=user_object)
+#         if form.is_valid():
+#             user_object = form.save()
+#             user_object.save()
+#             return HttpResponseRedirect(reverse('users:user_profile'))
 #     context = {
-#         'title': f'Ваш профиль {user_name}',
+#         'object': user_object,
+#         'title': f'Изменить профиль {user_object.first_name} {user_object.last_name}',
+#         'form': UserUpdateForm(instance=user_object)
 #     }
-#     return render(request, 'users/user_profile_read_only.html', context=context)
-
-
-@login_required(login_url='users:user_login')
-def user_update_view(request):
-    user_object = request.user
-    if request.method == "POST":
-        form = UserUpdateForm(request.POST, request.FILES, instance=user_object)
-        if form.is_valid():
-            user_object = form.save()
-            user_object.save()
-            return HttpResponseRedirect(reverse('users:user_profile'))
-    context = {
-        'object': user_object,
-        'title': f'Изменить профиль {user_object.first_name} {user_object.last_name}',
-        'form': UserUpdateForm(instance=user_object)
-    }
-    return render(request, 'users/user_update.html', context=context)
+#     return render(request, 'users/user_update.html', context=context)
     
 @login_required(login_url='users:user_login')
 def user_change_password_view(request):
