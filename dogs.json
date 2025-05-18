@@ -38,7 +38,8 @@
             "name": "Мухтар",
             "breed": 1,
             "photo": "dogs/Немецкая_овчарка.png",
-            "birth_date": "2023-08-08"
+            "birth_date": "2023-08-08",
+            "owner": null
         }
     },
     {
@@ -48,7 +49,8 @@
             "name": "Лесси",
             "breed": 2,
             "photo": "dogs/Колли.png",
-            "birth_date": "2024-10-08"
+            "birth_date": "2023-10-08",
+            "owner": null
         }
     },
     {
@@ -58,7 +60,30 @@
             "name": "Рен",
             "breed": 4,
             "photo": "dogs/Чихуа-Хуа.png",
-            "birth_date": "2024-05-05"
+            "birth_date": "2024-05-05",
+            "owner": null
+        }
+    },
+    {
+        "model": "dogs.dog",
+        "pk": 6,
+        "fields": {
+            "name": "Пушок Лучший",
+            "breed": 3,
+            "photo": "dogs/Джек_Рассел.png",
+            "birth_date": "2024-05-06",
+            "owner": null
+        }
+    },
+    {
+        "model": "dogs.dog",
+        "pk": 9,
+        "fields": {
+            "name": "Майло",
+            "breed": 3,
+            "photo": "dogs/Джук_Рассел_Терьер.jpg",
+            "birth_date": "2020-08-08",
+            "owner": 1
         }
     }
 ]
