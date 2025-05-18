@@ -56,36 +56,24 @@ class DogCreateView(CreateView):
     success_url = reverse_lazy('dogs:dogs_list')
 
 
-# @login_required(login_url='users:user_login')
-# def dog_create_view(request):
-#     if request.method == 'POST':
-#         form = DogForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             dog_object = form.save()
-#             dog_object.owner = request.user
-#             dog_object.save()
-#             return HttpResponseRedirect(reverse('dogs:dogs_list'))
-#     context = {
-#         'title': "Добавить собаку",
-#         'form': DogForm,
-#     }
-#     return render(request, 'dogs/create_update.html', context=context)
+class DogDetailView(DetailView):
+    model = Dog
+    template_name = 'dogs/detail.html'
+    
+    def get_context_data(self, **kwargs):
+        context_data = super().get_context_data(**kwargs)
+        object_ = self.get_object()
+        context_data['title'] = f'Подробная информация {object_}'
+        return context_data
 
 
-@login_required(login_url='users:user_login')
-def dog_detail_view(request, pk):
-    dog_object = Dog.objects.get(pk=pk)
-    context = {
-        'object': dog_object,
-        'title': dog_object
-    }
-    return render(request, 'dogs/detail.html', context=context)
+
 
 
 @login_required(login_url='users:user_login')
 def dog_update_view(request, pk):
     dog_object = get_object_or_404(Dog, pk=pk)
-    if request.method =="POST":
+    if request.method == "POST":
         form = DogForm(request.POST, request.FILES, instance=dog_object)
         if form.is_valid():
             dog_object = form.save()
