@@ -33,7 +33,7 @@ class Dog(models.Model):
         
 class DogParent(models.Model):
     dogs = models.ForeignKey(Dog, on_delete=models.CASCADE)
-    name = models.CharField(max_length=150, verbose_name='Кличка Родителя')
+    name = models.CharField(max_length=150, verbose_name='Кличка родителя')
     breed = models.ForeignKey(Breed, on_delete=models.CASCADE, verbose_name='Порода родителя')
     birth_date = models.DateField(**NULLABLE, verbose_name='Дата рождения родилетя')
     
