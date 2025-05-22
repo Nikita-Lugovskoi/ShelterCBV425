@@ -39,6 +39,7 @@
             "breed": 1,
             "photo": "dogs/Немецкая_овчарка.png",
             "birth_date": "2023-08-08",
+            "is_active": true,
             "owner": 1
         }
     },
@@ -50,6 +51,7 @@
             "breed": 2,
             "photo": "dogs/Колли.png",
             "birth_date": "2023-10-08",
+            "is_active": true,
             "owner": null
         }
     },
@@ -61,6 +63,7 @@
             "breed": 4,
             "photo": "dogs/Чихуа-Хуа.png",
             "birth_date": "2024-05-05",
+            "is_active": true,
             "owner": 2
         }
     },
@@ -72,6 +75,7 @@
             "breed": 3,
             "photo": "dogs/Джек_Рассел.png",
             "birth_date": "2024-05-06",
+            "is_active": true,
             "owner": null
         }
     },
@@ -83,6 +87,7 @@
             "breed": 3,
             "photo": "dogs/Джук_Рассел_Терьер.jpg",
             "birth_date": "2020-08-08",
+            "is_active": true,
             "owner": 1
         }
     },
@@ -94,6 +99,7 @@
             "breed": 1,
             "photo": "",
             "birth_date": "2023-08-08",
+            "is_active": true,
             "owner": 3
         }
     },

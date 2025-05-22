@@ -11,6 +11,7 @@ from django.forms import inlineformset_factory
 
 from dogs.models import Breed, Dog, DogParent
 from dogs.forms import DogForm, DogParentForm
+from users.models import UserRoles
 
 
 def index(request):
@@ -38,8 +39,7 @@ class DogBreedListVeiw(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset().filter(breed_id=self.kwargs.get('pk'))
-        return queryset
-                
+        return queryset 
 
 
 class DogListView(ListView):
@@ -48,7 +48,27 @@ class DogListView(ListView):
         'title': 'Питомник - все наши собаки',
     }
     template_name = 'dogs/dogs.html'
-
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.filter(is_active=True)
+        return queryset
+    
+ 
+class DogDeactivetedListView(LoginRequiredMixin, ListView):
+    model = Dog
+    extra_context = {
+        'title': 'Питомник - все наши собаки',
+    }
+    template_name = 'dogs/dogs.html'   
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.user.role in [UserRoles.ADMIN, UserRoles.MODERATOR]:
+            queryset = queryset.filter(is_active=False)
+        if self.request.user.role == UserRoles.USER:
+            queryset = queryset.filter(is_active=False, owner=self.request.user)
+        return queryset
 
 
 # Create Read Update Delet (CRUD)
