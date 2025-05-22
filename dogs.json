@@ -39,7 +39,7 @@
             "breed": 1,
             "photo": "dogs/Немецкая_овчарка.png",
             "birth_date": "2023-08-08",
-            "owner": null
+            "owner": 1
         }
     },
     {
@@ -61,7 +61,7 @@
             "breed": 4,
             "photo": "dogs/Чихуа-Хуа.png",
             "birth_date": "2024-05-05",
-            "owner": null
+            "owner": 2
         }
     },
     {
@@ -84,6 +84,27 @@
             "photo": "dogs/Джук_Рассел_Терьер.jpg",
             "birth_date": "2020-08-08",
             "owner": 1
+        }
+    },
+    {
+        "model": "dogs.dog",
+        "pk": 13,
+        "fields": {
+            "name": "Мухтар Rights",
+            "breed": 1,
+            "photo": "",
+            "birth_date": "2023-08-08",
+            "owner": 3
+        }
+    },
+    {
+        "model": "dogs.dogparent",
+        "pk": 1,
+        "fields": {
+            "dogs": 3,
+            "name": "Бернард",
+            "breed": 4,
+            "birth_date": "2018-08-08"
         }
     }
 ]

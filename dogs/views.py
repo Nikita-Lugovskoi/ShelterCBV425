@@ -21,7 +21,7 @@ def index(request):
     return render(request, 'dogs/index.html', context=context)
 
 
-class BreedListView(ListView):
+class BreedsListView(ListView):
     model = Breed
     extra_context = {
         'title': 'Все наши породы',
@@ -39,13 +39,7 @@ class DogBreedListVeiw(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super().get_queryset().filter(breed_id=self.kwargs.get('pk'))
         return queryset
-            
-    # def get_context_data(self, **kwargs):
-    #     context_data = super().get_context_data(**kwargs)
-    #     object_ = self.get_ob
-    #     context_data['title'] = f'Подробная информация {object_}'
-    #     return context_data
-    
+                
 
 
 class DogListView(ListView):
