@@ -115,7 +115,7 @@ class DogUpdateView(LoginRequiredMixin, UpdateView):
     
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
-        DogParentFormset = inlineformset_factory(Dog, DogParent, form=DogParentForm, extra=1)
+        DogParentFormset = inlineformset_factory(Dog, DogParent, form=DogParentForm, extra=2)
         if self.request.method == "POST":
             formset = DogParentFormset(self.request.POST, instance=self.object)
         else:
