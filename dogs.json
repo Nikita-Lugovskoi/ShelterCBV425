@@ -40,7 +40,8 @@
             "photo": "dogs/Немецкая_овчарка.png",
             "birth_date": "2023-08-08",
             "is_active": true,
-            "owner": 1
+            "owner": 1,
+            "views": 0
         }
     },
     {
@@ -51,8 +52,9 @@
             "breed": 2,
             "photo": "dogs/Колли.png",
             "birth_date": "2023-10-08",
-            "is_active": true,
-            "owner": null
+            "is_active": false,
+            "owner": null,
+            "views": 0
         }
     },
     {
@@ -64,19 +66,8 @@
             "photo": "dogs/Чихуа-Хуа.png",
             "birth_date": "2024-05-05",
             "is_active": true,
-            "owner": 2
-        }
-    },
-    {
-        "model": "dogs.dog",
-        "pk": 6,
-        "fields": {
-            "name": "Пушок Лучший",
-            "breed": 3,
-            "photo": "dogs/Джек_Рассел.png",
-            "birth_date": "2024-05-06",
-            "is_active": true,
-            "owner": null
+            "owner": 2,
+            "views": 0
         }
     },
     {
@@ -87,8 +78,9 @@
             "breed": 3,
             "photo": "dogs/Джук_Рассел_Терьер.jpg",
             "birth_date": "2020-08-08",
-            "is_active": true,
-            "owner": 1
+            "is_active": false,
+            "owner": 1,
+            "views": 0
         }
     },
     {
@@ -100,7 +92,8 @@
             "photo": "",
             "birth_date": "2023-08-08",
             "is_active": true,
-            "owner": 3
+            "owner": 3,
+            "views": 0
         }
     },
     {
