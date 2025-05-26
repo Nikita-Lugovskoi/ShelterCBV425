@@ -11,7 +11,7 @@ urlpatterns = [
     path('', ReviewListView.as_view(), name='reviews_list'),
     path('deactivated/', ReviewDeactivatedListView.as_view(), name='reviews_deactivated_list'),
     path('create/', ReviewCreateView.as_view(), name='review_create'),
-    path('detail/', ReviewDetailView.as_view(), name='review_detail'),
-    path('update/', ReviewUpdateView.as_view(), name='review_update'),
-    path('delete/', ReviewDeleteView.as_view(), name='review_delete'),
+    path('detail/<slug:slug>/', ReviewDetailView.as_view(), name='review_detail'),
+    path('update/<slug:slug>/', ReviewUpdateView.as_view(), name='review_update'),
+    path('delete/<slug:slug>/', ReviewDeleteView.as_view(), name='review_delete'),
 ]
