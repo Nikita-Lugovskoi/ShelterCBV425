@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # progect apps
     'users',
     'dogs',
+    'reviews',
 ]
 
 MIDDLEWARE = [
