@@ -30,6 +30,7 @@ class BreedsListView(ListView):
         'title': 'Все наши породы',
     }
     template_name = 'dogs/breeds.html'
+    paginate_by = 3
 
 
 class DogBreedListVeiw(LoginRequiredMixin, ListView):
@@ -50,6 +51,7 @@ class DogListView(ListView):
         'title': 'Питомник - все наши собаки',
     }
     template_name = 'dogs/dogs.html'
+    paginate_by = 3
     
     def get_queryset(self):
         queryset = super().get_queryset()
