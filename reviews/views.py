@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.core.exceptions import PermissionDenied
 
 from reviews.models import Review
-from users.models import User, UserRoles
+from users.models import UserRoles
 from reviews.forms import ReviewAdminForm
 from reviews.utils import slug_generator
 
@@ -17,10 +17,10 @@ class ReviewListView(ListView):
     }
     template_name = 'reviews/reviews.html'
     paginate_by = 3
-    
+
     def get_queryset(self):
         return super().get_queryset().filter(sign_of_review=True)
-    
+
 
 class ReviewDeactivatedListView(ListView):
     model = Review
@@ -29,11 +29,11 @@ class ReviewDeactivatedListView(ListView):
     }
     template_name = 'reviews/reviews.html'
     paginate_by = 3
-    
+
     def get_queryset(self):
         return super().get_queryset().filter(sign_of_review=False)
-    
-    
+
+
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewAdminForm
@@ -41,7 +41,7 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
     extra_context = {
         'title': 'Добавить отзыв'
     }
-    
+
     def form_valid(self, form):
         if self.request.user.role not in [UserRoles.USER, UserRoles.ADMIN]:
             return HttpResponseForbidden
@@ -53,9 +53,8 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
         slug_object.author = self.request.user
         slug_object.save()
         return super().form_valid(form)
-    
-    
-    
+
+
 class ReviewDetailView(DetailView):
     model = Review
     form_class = ReviewAdminForm
@@ -63,8 +62,8 @@ class ReviewDetailView(DetailView):
     extra_context = {
         'title': 'Просмотр отзыва'
     }
-    
-    
+
+
 class ReviewUpdateView(LoginRequiredMixin, UpdateView):
     model = Review
     form_class = ReviewAdminForm
@@ -72,26 +71,27 @@ class ReviewUpdateView(LoginRequiredMixin, UpdateView):
     extra_context = {
         'title': 'Изменить отзыв'
     }
-    
+
     def get_object(self, queryset=None):
         object_ = super().get_object(queryset=queryset)
         if object_.author != self.request.user and self.request.user.role not in [UserRoles.ADMIN, UserRoles.MODERATOR]:
             raise PermissionDenied()
-        return object_        
-    
+        return object_
+
     def get_success_url(self):
-        return reverse('review:review_detail', args=[self.kwargs.get('slug')] )
-    
+        return reverse('review:review_detail', args=[self.kwargs.get('slug')])
+
 
 class ReviewDeleteView(PermissionRequiredMixin, DeleteView):
     model = Review
     form_class = ReviewAdminForm
     template_name = 'reviews/delete.html'
     permission_required = 'reviews.delete_review'
-    
+
     def get_success_url(self):
         return reverse('reviews:reviews_list')
-    
+
+
 def review_toggle_activity(request, slug):
     review_item = get_list_or_404(Review, slug=slug)
     if review_item.sign_of_review:

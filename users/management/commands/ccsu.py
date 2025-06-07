@@ -4,7 +4,7 @@ from users.models import User, UserRoles
 
 
 class Command(BaseCommand):
-    
+
     def handle(self, *args, **options):
         admin = User.objects.create(
             email='admin@web.top',
@@ -18,8 +18,7 @@ class Command(BaseCommand):
         admin.set_password('qwerty')
         admin.save()
         print('Admin Created')
-        
-        
+
         moderator = User.objects.create(
             email='moderator@web.top',
             first_name='Moderator',
@@ -32,8 +31,7 @@ class Command(BaseCommand):
         moderator.set_password('qwerty')
         moderator.save()
         print('Moderator Created')
-        
-        
+
         user = User.objects.create(
             email='user@web.top',
             first_name='User',

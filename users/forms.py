@@ -6,6 +6,7 @@ from django.contrib.auth.forms import PasswordChangeForm, UserCreationForm, Auth
 from django.core.exceptions import ValidationError
 from django.contrib.auth import password_validation
 
+
 class StyleFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -13,7 +14,7 @@ class StyleFormMixin:
             field.widget.attrs['class'] = 'form-control'
 
 
-class  UserForm(StyleFormMixin, forms.ModelForm):
+class UserForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'phone', 'avatar', )
@@ -23,7 +24,7 @@ class UserRegisterForm(StyleFormMixin, UserCreationForm):
     class Meta:
         model = User
         fields = ('email',)
-        
+
     def clean_password2(self):
         cleaned_data = self.cleaned_data
         validate_password(cleaned_data['password1'])
@@ -31,18 +32,17 @@ class UserRegisterForm(StyleFormMixin, UserCreationForm):
             print('Пароли не совпадают')
             raise forms.ValidationError('Пароли не совпадают!!!')
         return cleaned_data['password2']
-    
-    
-    
+
+
 class UserLoginForm(StyleFormMixin, AuthenticationForm):
     pass
-    
-    
-class  UserUpdateForm(StyleFormMixin, forms.ModelForm):
+
+
+class UserUpdateForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'phone', 'telegram', 'avatar',)
-        
+
 
 class UserPasswordChangeForm(StyleFormMixin, PasswordChangeForm):
     def clean_new_password2(self):
@@ -52,7 +52,7 @@ class UserPasswordChangeForm(StyleFormMixin, PasswordChangeForm):
         if password1 and password2 and password1 != password2:
             raise ValidationError(
                 self.error_messages['Пароли не совпадают!!!'],
-                code='password_mismatch'    
+                code='password_mismatch'
             )
         password_validation.validate_password(password2, self.user)
         return password2

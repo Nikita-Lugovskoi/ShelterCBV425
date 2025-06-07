@@ -1,9 +1,8 @@
 from django.conf import settings
 from django.core.cache import cache
-from django.core.mail  import send_mail
+from django.core.mail import send_mail
 
-from dogs.models import Breed, Dog
-
+from dogs.models import Breed
 
 
 def get_breed_cache():
@@ -15,9 +14,9 @@ def get_breed_cache():
             cache.set(key, breed_list)
         else:
             breed_list = Breed.objects.all()
-            
+
         return breed_list
-    
+
 
 def send_views_email(dog_object, owner_email, views_count):
     send_mail(

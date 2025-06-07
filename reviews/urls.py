@@ -3,7 +3,7 @@ from django.urls import path
 from reviews.apps import ReviewsConfig
 
 from reviews.views import ReviewListView, ReviewDeactivatedListView, ReviewCreateView, ReviewUpdateView, \
-                          ReviewDetailView, ReviewDeleteView, review_toggle_activity
+    ReviewDetailView, ReviewDeleteView, review_toggle_activity
 
 app_name = ReviewsConfig.name
 

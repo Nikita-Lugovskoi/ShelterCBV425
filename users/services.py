@@ -9,7 +9,7 @@ def send_register_email(email):
         from_email=settings.EMAIL_HOST_USER,
         recipient_list=[email, ]
     )
-    
+
 
 def send_new_password(email, new_password):
     send_mail(

@@ -10,7 +10,7 @@ class DogForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Dog
         exclude = ('owner', 'is_active', 'views')
-        
+
     def clean_birth_date(self):
         cleaned_data = self.cleaned_data['birth_date']
         if cleaned_data:
@@ -18,14 +18,14 @@ class DogForm(StyleFormMixin, forms.ModelForm):
             if now_year - cleaned_data.year > 35:
                 raise forms.ValidationError('Собака должна быть моложе 35 лет')
         return cleaned_data
-    
-    
+
+
 class DogAdminForm(DogForm):
     class Meta:
         model = Dog
-        exclude = ('is_active', ) 
-        
-        
+        exclude = ('is_active', )
+
+
 class DogParentForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = DogParent
